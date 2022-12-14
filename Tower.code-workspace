@@ -1,4 +1,3 @@
-
 {
   "folders": [
     {
@@ -42,31 +41,31 @@
       "editor.defaultFormatter": "Vue.volar"
     },
     "workbench.colorCustomizations": {
-      "activityBar.activeBackground": "#40f330",
-      "activityBar.background": "#40f330",
+      "activityBar.activeBackground": "#b486c4",
+      "activityBar.background": "#b486c4",
       "activityBar.foreground": "#15202b",
       "activityBar.inactiveForeground": "#15202b99",
-      "activityBarBadge.background": "#6874f6",
-      "activityBarBadge.foreground": "#e7e7e7",
-      "commandCenter.border": "#15202b99",
-      "panel.border": "#40f330",
-      "sash.hoverBorder": "#40f330",
-      "statusBar.background": "#1fe30d",
-      "statusBar.border": "#1fe30d",
-      "statusBar.debuggingBackground": "#d10de3",
-      "statusBar.debuggingBorder": "#d10de3",
-      "statusBar.debuggingForeground": "#e7e7e7",
-      "statusBar.foreground": "#15202b",
-      "statusBarItem.hoverBackground": "#18b30a",
-      "statusBarItem.remoteBackground": "#1fe30d",
-      "statusBarItem.remoteForeground": "#15202b",
-      "tab.activeBorder": "#40f330",
-      "titleBar.activeBackground": "#1fe30d",
-      "titleBar.activeForeground": "#15202b",
-      "titleBar.border": "#1fe30d",
-      "titleBar.inactiveBackground": "#1fe30d99",
-      "titleBar.inactiveForeground": "#15202b99"
+      "activityBarBadge.background": "#e0d7bf",
+      "activityBarBadge.foreground": "#15202b",
+      "commandCenter.border": "#e7e7e799",
+      "panel.border": "#b486c4",
+      "sash.hoverBorder": "#b486c4",
+      "statusBar.background": "#9f64b3",
+      "statusBar.border": "#9f64b3",
+      "statusBar.debuggingBackground": "#78b364",
+      "statusBar.debuggingBorder": "#78b364",
+      "statusBar.debuggingForeground": "#15202b",
+      "statusBar.foreground": "#e7e7e7",
+      "statusBarItem.hoverBackground": "#b486c4",
+      "statusBarItem.remoteBackground": "#9f64b3",
+      "statusBarItem.remoteForeground": "#e7e7e7",
+      "tab.activeBorder": "#b486c4",
+      "titleBar.activeBackground": "#9f64b3",
+      "titleBar.activeForeground": "#e7e7e7",
+      "titleBar.border": "#9f64b3",
+      "titleBar.inactiveBackground": "#9f64b399",
+      "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "#1fe30d"
+    "peacock.color": "#9f64b3"
   }
 }
