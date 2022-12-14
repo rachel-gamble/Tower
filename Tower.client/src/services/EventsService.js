@@ -3,6 +3,12 @@ import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 
 class EventsService {
+
+    async getAll() {
+        const res = await api.get('api/events')
+        AppState.events = res.data
+        logger.log('[get all events]', res.data)
+    }
     async createEvent(body) {
         const res = await api.post('api/events', body)
         logger.log(res.data)

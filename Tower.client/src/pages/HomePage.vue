@@ -12,18 +12,30 @@
 
 <script>
 import { computed, ref } from '@vue/reactivity';
+import { onMounted } from 'vue';
 import { AppState } from '../AppState.js';
 // import LoginVue from '../components/Login.vue';
 import { eventsService } from '../services/EventsService.js';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 
 
 export default {
   setup() {
     const filterBy = ref("");
-    // onMounted(() => {
-
-    // })
+    async function getEvents() {
+      try {
+        await eventsService.getAll();
+      } catch (error) {
+        // Pop.toast('error getting events', error)
+        logger.error(error);
+      }
+    }
+    onMounted(() => {
+      getEvents();
+    })
     return {
+      filterBy,
       account: computed(() => AppState),
       creator: computed(() => AppState),
       events: computed(() => {
