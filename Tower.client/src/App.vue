@@ -2,17 +2,22 @@
   <header>
     <Navbar />
   </header>
-  <main>
+  <main class="bg-dark text-light">
     <router-view />
   </main>
-   <footer class="bg-dark text-light">
-    Made with 💖 by CodeWorks
+  <footer class="bg-dark">
+    Made with ✨💀🌙 by Sautrah
   </footer>
+  <ModalComponent id="eventModal" class="">
+    <EventForm />
+  </ModalComponent>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
+import EventForm from './components/EventForm.vue'
+import ModalComponent from './components/ModalComponent.vue'
 import Navbar from './components/Navbar.vue'
 
 export default {
@@ -21,13 +26,13 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar }
+  components: { Navbar, EventForm, ModalComponent }
 }
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
-:root{
+:root {
   --main-height: calc(100vh - 32px - 64px);
 }
 

@@ -7,9 +7,9 @@ class AppState extends EventEmitter {
   /** @type {import('./Models/Account.js').Account} */
   // @ts-ignore
   account = {}
-  /** @type {import('./Models/Value').Value[]} */
-  values = []
-  socketData = []
+    socketData = []
+  // events = []
+  //   newEvent = {}
 }
 
 export const appState = new Proxy(new AppState(), {

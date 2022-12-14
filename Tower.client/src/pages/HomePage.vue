@@ -1,23 +1,42 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img
-        src="https://bcw.blob.core.windows.net/public/img/8600856373152463"
-        alt="CodeWorks Logo"
-        class="rounded-circle"
-      >
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
-    </div>
+  <div class="container-fluid bg-dark">
+    <!--SECTION create event only shows if logged in-->
+    <!-- <button v-if="account.id" class="btn btn-warning-outline" data-bs-toggle="modal" data-bs-target="$exampleModal">Create Event</button> -->
+    <!-- <EventModal>
+  <EventForm />
+    </EventModal> -->
   </div>
+
+
 </template>
 
 <script>
+import { computed, ref } from '@vue/reactivity';
+import { AppState } from '../AppState.js';
+// import LoginVue from '../components/Login.vue';
+import { eventsService } from '../services/EventsService.js';
+
+
 export default {
   setup() {
-    return {}
-  }
+    const filterBy = ref("");
+    // onMounted(() => {
+
+    // })
+    return {
+      account: computed(() => AppState),
+      creator: computed(() => AppState),
+      events: computed(() => {
+        if (filterBy.value == "") {
+          return AppState.events;
+        } else {
+          return AppState.account.events.filter(e => e.type == filterBy.value);
+        }
+      })
+    }
+  },
+  // component: { login },
+  // components: { EventCard }
 }
 </script>
 
