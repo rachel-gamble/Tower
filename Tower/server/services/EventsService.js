@@ -18,6 +18,11 @@ class EventsService {
         return event
     }
 
+    async getEventComments(eventId) {
+        const comments = await dbContext.Comments.find(eventId).populate('creator')
+        return comments
+    }
+
     async update(id, data) {
         const original = await dbContext.Events.findById(id)
         if (!original) throw new BadRequest('no event at id: ' + id)

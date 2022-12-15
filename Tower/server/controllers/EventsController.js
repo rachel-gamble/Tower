@@ -12,6 +12,7 @@ export class EventsController extends BaseController {
             .get('', this.getAll)
             .get('/:id', this.getOne)
             .get('/:id/tickets', this.getTicketsByEvent)
+            .get('/:id/comments', this.getEventComments)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.create)
             .put('/:id', this.update)
@@ -41,6 +42,15 @@ export class EventsController extends BaseController {
         } catch (error) {
             next(error)
         }
+    }
+    async getEventComments(req, res, next) {
+        try {
+            const comments = await eventsService.getEventComments({ eventId: req.params.id })
+            return res.send(comments)
+        } catch (error) {
+            next(error)
+        }
+
     }
     async create(req, res, next) {
         try {
