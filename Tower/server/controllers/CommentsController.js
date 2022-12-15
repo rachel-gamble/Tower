@@ -9,15 +9,14 @@ export class CommentsController extends BaseController {
     constructor() {
         super('api/comments')
         this.router
-            .get('/:commentId', this.getCommentById)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .get('/:commentId', this.getCommentById)
             .post('', this.create)
-            .delete('/:commentId', this.removeComment)
+            .delete('/:id', this.removeComment)
     }
     async getCommentById(req, res, next) {
         try {
-            const comment = await commentsService.getCommentById(req.params.id)
+            const comment = await comment.getCommentById(req.params.id)
             return res.send(comment)
         } catch (error) {
             next(error)
@@ -33,13 +32,22 @@ export class CommentsController extends BaseController {
         }
     }
 
-    async removeComment(commentId, userId) {
-        const comment = await this.getCommentById(commentId);
-        if (comment.creatorId.toString() !== userId) {
-            throw new BadRequest("You do not have permission to delete this.")
+    // async removeComment(commentId, userId) {
+    //     const comment = await this.getCommentById(commentId);
+    //     if (comment.creatorId.toString() !== userId) {
+    //         throw new BadRequest("You do not have permission to delete this.")
+    //     }
+    //     const removed = await dbContext.Comments.findByIdAndDelete(commentId)
+    //     return removed
+    // }
+    async removeComment(req, res, next) {
+        try {
+            return res.send(await commentsService.removeComment(req.params.id, req.userInfo.id));
         }
-        const removed = await dbContext.Comments.findByIdAndDelete(commentId)
-        return removed
+        catch (error) {
+            next(error);
+        }
     }
+
 
 }

@@ -16,13 +16,17 @@ class CommentsService {
         return comment
     }
 
-    async removeComment(req, res, next) {
-        try {
-            const comment = await this.getCommentById(commentId);
-            if (comment.creatorId.toString() !== userId) {
-                throw new Forbidden("You do not have permission to delete this.")
-            }
+    async removeComment(id, userId) {
+        const removed = await dbContext.Comments.findById(id);
+        if (!removed) {
+            throw new BadRequest("No comment found with that id.");
         }
+        if (removed.creatorId.toString() !== userId) {
+            throw new BadRequest("You do not permission to delete this comment.")
+        }
+        removed.remove();
+        return removed
+    }
 }
 
-    export const commentsService = new CommentsService()
+export const commentsService = new CommentsService()
