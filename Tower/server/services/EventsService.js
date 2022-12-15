@@ -23,18 +23,19 @@ class EventsService {
         return comments
     }
 
-    async update(id, data) {
+    async update(id, data, userId) {
         const original = await dbContext.Events.findById(id)
+        //if there is no event at that id, you can't do anything
+        if (!original) throw new BadRequest('no event at id: ' + id)
+
         //only event creator can cancel event
-        if (original.creatorId.toString() !== data.creatorId) {
-            throw new BadRequest("Only the event creator can edit this.");
+        if (original.creatorId != userId) {
+            throw new Forbidden("Only the event creator can edit this.");
         }
         //if event is canceled, you can't edit it
         if (original.isCanceled) {
             throw new BadRequest("Error: Can't edit a canceled event.");
         }
-        //if there is no event at that id, you can't do anything
-        if (!original) throw new BadRequest('no event at id: ' + id)
 
         //Event Schema Model Here
         original.name = data.name ? data.name : original.name

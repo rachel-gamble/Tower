@@ -1,13 +1,27 @@
 <template>
   <div class="container-fluid bg-dark">
-    <!--SECTION create event only shows if logged in-->
-    <!-- <button v-if="account.id" class="btn btn-warning-outline" data-bs-toggle="modal" data-bs-target="$exampleModal">Create Event</button> -->
-    <!-- <EventModal>
-  <EventForm />
-    </EventModal> -->
+    <card>
+
+      <!--SECTION create event only shows if logged in-->
+      <button v-if="account.id" class="btn btn-warning-outline" data-bs-toggle="modal"
+        data-bs-target="$exampleModal">Create Event</button>
+      <EventModal>
+        <EventForm />
+      </EventModal>
+      <!--SECTION home page links-->
+      <div class="row">
+        <card class="col-12 p-2 text-info d-flex"></card>
+        <button>All</button>
+        <button>Raves</button>
+        <button>Concerts</button>
+        <button>Tech</button>
+        <button>Yoga + Dance</button>
+      </div>
+      <!--SECTION event cards-->
+
+
+    </card>
   </div>
-
-
 </template>
 
 <script>
