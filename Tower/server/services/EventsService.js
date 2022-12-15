@@ -25,13 +25,15 @@ class EventsService {
 
     async update(id, data) {
         const original = await dbContext.Events.findById(id)
-
+        //only event creator can cancel event
         if (original.creatorId.toString() !== data.creatorId) {
             throw new BadRequest("Only the event creator can edit this.");
         }
+        //if event is canceled, you can't edit it
         if (original.isCanceled) {
             throw new BadRequest("Error: Can't edit a canceled event.");
         }
+        //if there is no event at that id, you can't do anything
         if (!original) throw new BadRequest('no event at id: ' + id)
 
         //Event Schema Model Here
@@ -41,6 +43,8 @@ class EventsService {
         original.location = data.location ? data.location : original.location
         original.capacity = data.capacity ? data.capacity : original.capacity
         // original.isCanceled = data.isCanceled ? data.isCanceled : original.isCanceled
+        // event cancel is handled on a separate form, not during creation.
+        // logic: you can't create a canceled event
         original.startDate = data.startDate ? data.startDate : original.startDate
         original.type = data.type ? data.type : original.type
         await original.save()
