@@ -49,12 +49,11 @@
       <!-- SECTION Category/Type dropdown -->
       <div class="form-floating mb-3">
         <select v-model="editable.type" class="form-select" aria-label="Default select example" id="type">
-          <option selected>Category</option>
-          <option value="Concert">All</option>
-          <option value="Rave">Rave</option>
-          <option value="Tech">Concerts</option>
-          <option value="Magic">Tech</option>
-          <option value="Dance">Yoga + Dance</option>
+          <label for="floatingSelect">Type of Event</label>
+          <option selected value ="concert">Rave</option>
+          <option value="convention">Concert</option>
+          <option value="sport">Yoga + Dance</option>
+          <option value="digital">Tech</option>
         </select>
       </div>
     </div>
@@ -92,7 +91,7 @@ export default {
           logger.log(editable.value)
           // NOTE create album returns the res.data with our ID on it
           await eventsService.createEvent(editable.value);
-          // NOTE clear the form by sitting the value of editable to an empyt object
+          // NOTE clear the form by sitting the value of editable to an empty object
           editable.value = {}
           // NOTE hide the modal after the form submits
           Modal.getOrCreateInstance('#eventModal').hide()

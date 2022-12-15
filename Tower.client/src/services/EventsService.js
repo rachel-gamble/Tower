@@ -21,6 +21,10 @@ class EventsService {
         AppState.events.unshift(res.data)
         return res.data
     }
+
+    // async getEventsByUser(){
+    //     const res = await api.get('api/accounts')
+    // }
 }
 
 export const eventsService = new EventsService()

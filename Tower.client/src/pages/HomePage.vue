@@ -1,35 +1,31 @@
 <template>
   <div class="container-fluid bg-dark">
-    <card>
 
-      <!--SECTION create event only shows if logged in-->
-      <button v-if="account.id" class="btn btn-warning-outline" data-bs-toggle="modal"
-        data-bs-target="$exampleModal">Create Event</button>
-      <EventModal>
-        <EventForm />
-      </EventModal>
-      <!--SECTION home page links-->
-      <div class="row">
-        <card class="col-12 p-2 text-info d-flex justify-space-between">
-          <!--TODO pass @click="filterBy = 'all'"-->
-          <!--TODO pass @click="filterBy = ''"-->
-          <button>All</button>
-          <button>Raves</button>
-          <button>Concerts</button>
-          <button>Tech</button>
-          <button>Yoga + Dance</button>
-          <button>Misc</button>
-        </card>
+    <!--SECTION create event only shows if logged in-->
+    <button v-if="account.id" class="btn btn-warning-outline" data-bs-toggle="modal"
+      data-bs-target="$exampleModal">Create Event</button>
+    <EventModal>
+      <EventForm />
+    </EventModal>
+    <!--SECTION home page links-->
+    <div class="row">
+      <div class="col-12 p-4 text-info d-flex justify-space-between">
+        <!--TODO pass @click="filterBy = 'all'"-->
+        <button @click="filterBy = ''" class="p-2 mx-2 rounded">All Events</button>
+        <button @click="filterBy = 'concert'" class="p-2 mx-2 rounded">Raves</button>
+        <button @click="filterBy = 'convention'" class="p-2 mx-2 rounded">Concerts</button>
+        <button @click="filterBy = 'sport'" class="p-2 mx-2 rounded">Yoga + Dance</button>
+        <button @click="filterBy = 'digital'" class="p-2 mx-2 rounded">Tech</button>
       </div>
-      <!--SECTION event cards-->
-      <div class="row">
-        <div v-for="e in events" class="col-12 col-md-3 p-2">
-          <EventCard :event="e" />
-        </div>
+    </div>
+    <!--SECTION event cards-->
+    <div class="row">
+      <div v-for="e in events" class="col-12 col-md-3 p-2">
+        <EventCard :event="e" />
       </div>
-      <!--End Event Cards-->
+    </div>
+    <!--End Event Cards-->
 
-    </card>
   </div>
 </template>
 
