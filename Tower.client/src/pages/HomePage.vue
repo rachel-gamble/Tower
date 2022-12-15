@@ -49,7 +49,7 @@ export default {
       }
       catch (error) {
         // Pop.toast('error getting events', error)
-        logger.error(error);
+        logger.error('[GET EVENTS]', error);
       }
     }
     onMounted(() => {

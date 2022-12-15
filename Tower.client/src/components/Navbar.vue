@@ -3,7 +3,7 @@
 
     <div class="d-flex flex-column align-items-center">
       <!--TODO Logo Here-->
-      <img @click="goHome()" src="../assets/img/Logo.svg" class="img-fluid logo p-2 mt-2 selectable">
+      <img @click="goHome()" src="../assets/img/Logo.svg" class="img-fluid logo p-2 mt-2 mx-4 selectable">
     </div>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -13,7 +13,7 @@
 
     <!--SECTION - Create Event Button-->
     <ul class="navbar-nav me-auto">
-      <button v-if="account.id" class="btn btn-warning m- p-2" data-bs-toggle="modal" data-bs-target="#eventModal"><i
+      <button v-if="account.id" class="btn btn-warning mx-2 p-2" data-bs-toggle="modal" data-bs-target="#eventModal"><i
           class="mdi mdi-plus-outline"> new event</i></button>
     </ul>
     <!-- LOGIN COMPONENT HERE -->
