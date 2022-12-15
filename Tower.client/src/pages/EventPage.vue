@@ -1,20 +1,50 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
 
-      <div class="col-12 col-md-6">
-        <div class="elevation-5 rounded">
-          <img :src="activeEvent.coverImg" alt="" class="img-fluid card-img rounded-top">
-          <div class="text-center p-1">
+
+    <!--SECTION Event Details-->
+
+    <div class="row justify-content-center p-2">
+      <div class="col-12 col-md-10 card bg-dark">
+        <div class="text-center p-1">
+          <div class="elevation-5 rounded">
+            <!--SECTION Cover Img-->
+            <img :src="activeEvent.coverImg" alt="" class="img-fluid card-img rounded-top cover">
+            <!--SECTION Name-->
             <div class="fs-2 fw-bold">{{ activeEvent.name }}</div>
-            <div class="">{{ activeEvent.description }} </div>
-            <div class=""></div>
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-6">
+                <!--SECTION Description-->
+                <div class="text-start">{{ activeEvent.description }} </div>
+                <!--SECTION Location-->
+                <p>Location: {{ activeEvent.location }}</p>
+                <!--SECTION Start Date-->
+                <p>{{ activeEvent.startDate }}</p>
+                <!--SECTION Capacity-->
+                <p>Tickets Left: {{ activeEvent.capacity }}</p>
+                <!--SECTION Cancel / Alive -->
+                <!--TODO canceled event-->
+                <p>Status: Canceled??</p>
+              </div>
+              <!--SECTION Type-->
+              <p class="fs-6">Category: {{ activeEvent.type }}</p>
+              <div class=""></div>
+            </div>
           </div>
         </div>
       </div>
+      <!--TODO Event ticket holders, profile pictures, and names-->
+      <div class="row">
+        profile card here
+      </div>
+
+      <!--TODO Event Comments here-->
+
+      <div class="row">
+        comment card here
+      </div>
 
 
-      <!--SECTION Event Details-->
       <!-- <div v-if="event" class="col-12 col-md-4 p-4">
         <div class=""></div>
       </div> -->
@@ -28,9 +58,7 @@
     <!-- <div v-if="account.id && myEvents.length > 0"> -->
     <!-- </div> -->
 
-    <!--TODO Event ticket holders, profile pictures, and names-->
 
-    <!--TODO Event Comments here-->
 
   </div>
 </template>
@@ -75,5 +103,8 @@ export default {
 </script>
 
 <style>
-
+.cover {
+  width: 30em;
+  height: 30em;
+}
 </style>
