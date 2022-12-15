@@ -31,15 +31,6 @@ export class CommentsController extends BaseController {
             next(error)
         }
     }
-
-    // async removeComment(commentId, userId) {
-    //     const comment = await this.getCommentById(commentId);
-    //     if (comment.creatorId.toString() !== userId) {
-    //         throw new BadRequest("You do not have permission to delete this.")
-    //     }
-    //     const removed = await dbContext.Comments.findByIdAndDelete(commentId)
-    //     return removed
-    // }
     async removeComment(req, res, next) {
         try {
             return res.send(await commentsService.removeComment(req.params.id, req.userInfo.id));
