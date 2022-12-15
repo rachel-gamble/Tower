@@ -10,15 +10,24 @@
       </EventModal>
       <!--SECTION home page links-->
       <div class="row">
-        <card class="col-12 p-2 text-info d-flex"></card>
-        <button>All</button>
-        <button>Raves</button>
-        <button>Concerts</button>
-        <button>Tech</button>
-        <button>Yoga + Dance</button>
+        <card class="col-12 p-2 text-info d-flex justify-space-between">
+          <!--TODO pass @click="filterBy = 'all'"-->
+          <!--TODO pass @click="filterBy = ''"-->
+          <button>All</button>
+          <button>Raves</button>
+          <button>Concerts</button>
+          <button>Tech</button>
+          <button>Yoga + Dance</button>
+          <button>Misc</button>
+        </card>
       </div>
       <!--SECTION event cards-->
-
+      <div class="row">
+        <div v-for="e in events" class="col-12 col-md-3 p-2">
+          <EventCard :event="e" />
+        </div>
+      </div>
+      <!--End Event Cards-->
 
     </card>
   </div>
@@ -28,10 +37,11 @@
 import { computed, ref } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import { AppState } from '../AppState.js';
+import EventCard from '../components/EventCard.vue';
 // import LoginVue from '../components/Login.vue';
 import { eventsService } from '../services/EventsService.js';
 import { logger } from '../utils/Logger';
-import Pop from '../utils/Pop';
+import Pop from '../utils/Pop.js';
 
 
 export default {
@@ -40,14 +50,15 @@ export default {
     async function getEvents() {
       try {
         await eventsService.getAll();
-      } catch (error) {
+      }
+      catch (error) {
         // Pop.toast('error getting events', error)
         logger.error(error);
       }
     }
     onMounted(() => {
       getEvents();
-    })
+    });
     return {
       filterBy,
       account: computed(() => AppState),
@@ -55,14 +66,14 @@ export default {
       events: computed(() => {
         if (filterBy.value == "") {
           return AppState.events;
-        } else {
-          return AppState.account.events.filter(e => e.type == filterBy.value);
+        }
+        else {
+          return AppState.events.filter(e => e.type == filterBy.value);
         }
       })
-    }
+    };
   },
-  // component: { login },
-  // components: { EventCard }
+  components: { EventCard }
 }
 </script>
 

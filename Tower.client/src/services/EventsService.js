@@ -6,20 +6,21 @@ class EventsService {
 
     async getAll() {
         const res = await api.get('api/events')
-        AppState.events = res.data
         logger.log('[get all events]', res.data)
+        AppState.events = res.data
+    }
+
+    async getEventById(eventId) {
+        const res = await api.get('api/events/' + eventId)
+        logger.log('[get event by id]', res.data)
+        AppState.activeEvent = res.data
     }
     async createEvent(body) {
         const res = await api.post('api/events', body)
         logger.log(res.data)
         AppState.events.unshift(res.data)
+        return res.data
     }
-
-    // async getEvents(){
-    //     const res = await api.get('api/events')
-    //     AppState.events = res.data.events
-    //     logger.log('get events', res.data)
-    // }
 }
 
 export const eventsService = new EventsService()

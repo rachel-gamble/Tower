@@ -1,19 +1,22 @@
-<!-- <template>
-    <div class="elevation-5 rounded shadow selectable">
-        <img :src="event.coverImg" alt="" class="img-fluid rounded-top event-img">
-        <div class="text-center fw-bold p-1">
-            <p class="text-shadow">{{ event.name }}</p>
+<template>
+    <router-link :to="{ name: 'Event', params: { eventId: event.id } }">
+        <div class="elevation-5 rounded shadow selectable">
+            <img :src="event.coverImg" alt="" class="img-fluid rounded-top event-img">
+            <div class="text-center fw-bold p-1">
+                <p class="text-shadow">{{ event.name }}</p>
+
+            </div>
 
         </div>
 
-    </div>
+    </router-link>
 </template>
 
-<script>
 
+<script>
 export default {
     props: {
-        event: { type: object, required: true }
+        event: { type: Object, required: true }
     },
     setup() {
         return {
@@ -36,7 +39,7 @@ export default {
 
 .text-shadow {
     color: aliceblue;
-    text-shadow: 1em 1em rgb(248, 64, 217);
+    text-shadow: 1px 1px rgb(248, 64, 217);
     font-size: 20px;
 }
-</style> -->
+</style>
