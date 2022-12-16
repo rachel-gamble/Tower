@@ -6,7 +6,7 @@
             <p class="p-2">{{ comment.creator.name }}</p>
             <p class="p-2"></p>
             <i v-show="comment.creatorId == account.id" class="mdi mdi-delete fs-2 action" title="delete comment"
-                @click="deleteComment(comment.id, comment.creatorId)"></i>
+                @click="removeComment(comment.id, comment.creatorId)"></i>
         </div>
         <p>{{ comment.body }}</p>
     </div>
@@ -17,6 +17,9 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
+import { commentsService } from '../services/CommentsService';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 
 
 export default {
@@ -31,6 +34,16 @@ export default {
             account: computed(() => AppState.account),
             activeEvent: computed(() => AppState.activeEvent),
             activeComments: computed(() => AppState.activeComments),
+            async removeComment(commentId) {
+                try {
+                    if (await Pop.confirm()) {
+                        await commentsService.removeComment(commentId);
+                    }
+                } catch (error) {
+                    logger.error('[error deleting comment]', error);
+                    console.log('error removing comment', error)
+                }
+            }
         };
 
 

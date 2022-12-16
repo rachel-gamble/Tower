@@ -27,8 +27,8 @@
                 <p>Status: {{ activeEvent.isCanceled }}</p>
               </div>
               <!--SECTION Type-->
-              <p class="fs-6">Category: {{ activeEvent.type }}</p>
-              <div class=""></div>
+              <!-- <p class="fs-6">Category: {{ activeEvent.type }}</p>
+              <div class=""></div> -->
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@
 
 
       <!--TODO Event ticket holders, profile pictures, and names-->
-      <div class="row">
+      <div class="row justify-content-center">
         profile card here
       </div>
 

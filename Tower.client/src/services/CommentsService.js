@@ -9,7 +9,7 @@ class CommentsService {
         logger.log('Comments Service | Creating Comment', AppState.activeComments)
     }
 
-    async deleteComment(commentId, creatorId) {
+    async removeComment(commentId, creatorId) {
         const res = await api.delete('api/comments/' + commentId, { creatorId })
         const index = AppState.activeComments.findIndex(i => i.id === res.data.id)
         AppState.activeComments.splice(index, 1)
