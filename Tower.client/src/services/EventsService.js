@@ -22,6 +22,12 @@ class EventsService {
         return res.data
     }
 
+    async getCommentsByEvent(eventId) {
+        const res = await api.get('api/events/' + eventId + '/comments')
+        console.log('[COMMENTS FOR EVENT]', res.data);
+        AppState.activeComments = res.data
+    }
+
     // async getEventsByUser(){
     //     const res = await api.get('api/accounts')
     // }

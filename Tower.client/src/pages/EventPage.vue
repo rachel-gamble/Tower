@@ -24,7 +24,7 @@
                 <p>Tickets Left: {{ activeEvent.capacity }}</p>
                 <!--SECTION Cancel / Alive -->
                 <!--TODO canceled event-->
-                <p>Status: Canceled??</p>
+                <p>Status: {{ activeEvent.isCanceled }}</p>
               </div>
               <!--SECTION Type-->
               <p class="fs-6">Category: {{ activeEvent.type }}</p>
@@ -33,18 +33,31 @@
           </div>
         </div>
       </div>
+
+
+
       <!--TODO Event ticket holders, profile pictures, and names-->
       <div class="row">
         profile card here
       </div>
 
-      <!--TODO Event Comments here-->
+      <!--SECTION Comment FORM-->
 
-      <div class="row">
-        comment card here
+      <div class="col-12 col-md-8">
+        <div class="row d-flex">
+          <small> What are people saying about {{ activeEvent.name }}</small>
+          <CommentForm />
+        </div>
+        <!--SECTION Event Comments here-->
+
+        <div class="row">
+          <div v-for="c in activeComments" class="col-12 col-md-6 p-2">
+            <CommentCard :comment="c" />
+          </div>
+        </div>
+
+
       </div>
-
-
       <!-- <div v-if="event" class="col-12 col-md-4 p-4">
         <div class=""></div>
       </div> -->
@@ -72,10 +85,13 @@ import { eventsService } from "../services/EventsService.js";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { useRoute } from "vue-router";
+import { commentsService } from "../services/CommentsService"
+
 
 export default {
   setup() {
     const route = useRoute();
+    const comment = ref({ eventId: route.params.eventId })
     async function getEventById() {
       try {
         await eventsService.getEventById(route.params.eventId)
@@ -84,19 +100,25 @@ export default {
         Pop.error(error.message);
       }
     }
+    async function getCommentsByEvent(eventId) {
+      try {
+        await eventsService.getCommentsByEvent(route.params.eventId);
+      } catch (error) {
+        logger.error('[GET COMMENTS]', error);
+      }
+    }
     onMounted(async () => {
       getEventById();
-      // try {
-      //   await eventsService.getEventsByUser(route.params.id);
-      // }
-      // catch (error) {
-      //   logger.log(error);
-      //   Pop.toast(error.message, "error")
-      // }
+      getCommentsByEvent();
+
     })
     return {
-      activeEvent: computed(() => AppState.activeEvent)
-    };
+      comment,
+      activeEvent: computed(() => AppState.activeEvent),
+      activeComments: computed(() => AppState.activeComments),
+      // activeTickets: computed(() => AppState.activeTickets),
+      //TODO - Add ticket computed
+    }
 
   }
 }
@@ -106,5 +128,11 @@ export default {
 .cover {
   width: 30em;
   height: 30em;
+}
+
+.bg-comments {
+  background-color: rgb(154, 219, 254);
+  color: rgb(1, 28, 17);
+  text-shadow: 1px 1px rgba(54, 253, 247, 0.83);
 }
 </style>

@@ -50,7 +50,7 @@
       <div class="form-floating mb-3">
         <select v-model="editable.type" class="form-select" aria-label="Default select example" id="type">
           <label for="floatingSelect">Type of Event</label>
-          <option selected value ="concert">Rave</option>
+          <option selected value="concert">Rave</option>
           <option value="convention">Concert</option>
           <option value="sport">Yoga + Dance</option>
           <option value="digital">Tech</option>

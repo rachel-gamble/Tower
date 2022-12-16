@@ -11,6 +11,15 @@ import { computed } from 'vue'
 import { AppState } from '../AppState'
 export default {
   setup() {
+    // onMounted(async (
+    // try {
+    //   await eventsService.getEventsByUser(route.params.id);
+    // }
+    // catch (error) {
+    //   logger.log(error);
+    //   Pop.toast(error.message, "error")
+    // }
+    // ))
     return {
       account: computed(() => AppState.account)
     }
