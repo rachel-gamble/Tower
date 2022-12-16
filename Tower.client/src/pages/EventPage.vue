@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <!--TODO CREATE BUTTON TO ATTEND EVENT >> (create ticket) >>>> + show people v-for tickets + make Attendees component -->
+      <!--TODO CREATE BUTTON TO ATTEND EVENT >> (create ticket) // can't create 2 >> can if going  >> if event is sold out or canceled you can't get ticket (make it v-if if it's sold out or canceled )>>>> + show people v-for tickets + make Attendees component |||| delete ticket on account page -->
 
       <!--TODO Event ticket holders, profile pictures, and names-->
       <div class="row justify-content-center">
