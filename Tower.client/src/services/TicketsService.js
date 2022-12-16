@@ -9,6 +9,7 @@ class TicketsService {
         const res = await api.get('api/events/' + eventId + '/tickets')
         console.log('[getting tickets for this event]', res.data)
         AppState.eventTickets = res.data
+        return res.data
     }
 
     // async getMyTickets() {
@@ -41,15 +42,16 @@ class TicketsService {
         const res = await api.post('api/tickets', eventId)
         AppState.eventTickets.push(res.data)
         AppState.myTickets.push(res.data)
-        AppState.activeEvent.eventTickets++
+        AppState.activeEvent.capacity--
         logger.log('[create ticket]', res.data)
+        return res.data
     }
-    async cancelTicket(ticketId) {
-        const res = await api.delete('api/tickets/' + ticketId)
-        const myTickets = await ticketsService.getMyTickets()
-        AppState.myTickets = [...AppState.myTickets]
-        logger.log('destroyed ticket', res.data)
-    }
+    // async sellTicket(ticketId) {
+    //     const res = await api.delete('api/tickets/' + ticketId)
+    //     const accountTickets = await ticketsService.getMyTickets()
+    //     AppState.myTickets = [...AppState.myTickets]
+    //     logger.log('destroyed ticket', res.data)
+    // }
 
 
 }

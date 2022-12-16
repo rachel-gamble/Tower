@@ -1,6 +1,8 @@
+import { applyStyles } from "@popperjs/core"
 import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
+import { ticketsService } from "../services/TicketsService"
 
 class EventsService {
 
@@ -14,6 +16,13 @@ class EventsService {
         const res = await api.get('api/events/' + eventId)
         logger.log('[get event by id]', res.data)
         AppState.activeEvent = res.data
+    }
+
+    async getProfiles(eventId) {
+        const res = await api.get('api/events/' + eventId + '/tickets')
+        logger.log('[get tickets by album id]', res.data)
+        AppState.eventTickets = res.data
+        console.log(res.data)
     }
     async createEvent(body) {
         const res = await api.post('api/events', body)
@@ -32,6 +41,19 @@ class EventsService {
         const res = await api.delete('api/events/' + eventId)
         AppState.activeEvent = res.data
         logger.log('canceled event', res.data)
+    }
+
+    async sellTicket(ticketId) {
+        const res = await api.delete('api/tickets/' + ticketId)
+        AppState.eventTickets = AppState.eventTickets.filter(t => t.id !== ticketId)
+        AppState.myTickets = AppState.myTickets.filter(t => t.id !== ticketId)
+
+        AppState.activeEvent.capacity++
+    }
+    async getMyEvents() {
+        const res = await api.get('account/tickets')
+        console.log('get my event tickets', res.data)
+        AppState.accountTickets = res.data
     }
 
 

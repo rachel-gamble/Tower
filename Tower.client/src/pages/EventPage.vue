@@ -26,76 +26,84 @@
                 <!--SECTION Capacity-->
                 <p>Tickets Left: {{ activeEvent.capacity }}</p>
                 <!--SECTION Cancel / Alive -->
-                <!--TODO canceled event-->
-                <p>Status: {{ activeEvent.isCanceled }}</p>
+                <!-- <p>Status: {{ activeEvent.isCanceled }}</p> -->
               </div>
 
               <!--SECTION Attendees-->
-              <!-- <small>See who is attending</small>
-        <Attendees v-for="t in activeTickets" :key="t.id" :attendee="t" />
-      </div> -->
+              <small>See who is attending</small>
+              <Attendees v-for="t in eventTickets" :key="t.id" :attendee="t" />
+            </div>
 
-              <!--SECTION Button Buy Ticket-->
-              <div class="d-flex justify-content-between my-4">
-                <!--NOTE - create ticket | return/sell ticket | is canceled v-if + v-else-if v-else -->
-                <!--SECTION If Canceled -->
-                <div v-if="activeEvent?.isCanceled"
-                  class="rounded bg-danger text-dark w-100 text-center fw-bolder pb-1 mt-1 fs-4 not-allowed">Event
-                  Canceled<i class="mdi mdi-human-handsdown"></i></div>
-                <div v-else class="d-flex justify-content-between mt-2">
-                  <!--SECTION if tickets left-->
-                  <div class="">
-                    <span v-if="activeEvent?.capacity > 0"><b class="text-warning">{{ activeEvent?.capacity }}</b> spots
-                      left
-                    </span>
-                    <span v-else><b class="text-danger">NO SPOTS LEFT</b></span>
+            <!--SECTION Button Buy Ticket-->
+            <div class="d-flex justify-content-between my-4">
+              <!--NOTE - create ticket | return/sell ticket | is canceled v-if + v-else-if v-else -->
+              <!--SECTION If Canceled -->
+              <div v-if="activeEvent?.isCanceled"
+                class="rounded bg-danger text-dark w-100 text-center fw-bolder pb-1 mt-1 fs-4 not-allowed">Event
+                Canceled<i class="mdi mdi-human-handsdown"></i></div>
+              <div v-else class="d-flex justify-content-between mt-2">
+                <!--SECTION if tickets left-->
+                <div class="">
+                  <span v-if="activeEvent?.capacity > 0"><b class="text-warning">{{ activeEvent?.capacity }}</b> spots
+                    left
+                  </span>
+                  <span v-else><b class="text-danger">NO SPOTS LEFT</b></span>
+                </div>
+
+                <!--SECTION Buy -->
+                <div>
+
+                  <div v-if="attending">
+                    <button @click="sellTicket(attending.id)">Sell Ticket</button>
                   </div>
-                  <!--SECTION Buy -->
-                  <div class="text-dark bg-warning">
-                    <span v-show="!activeEvent?.isCanceled && account.myTicketsForEvent != 1"><button
-                        :disabled="myTicketsForEvent" @click="createTicket()" title="'attend ' + activeEvent?.name'">Buy
-                        Ticket</button></span>
+                  <div v-else-if="!activeEvent?.isCanceled && account.id">
+                    <button @click="createTicket()" title="'attend ' + activeEvent?.name'"
+                      class="text-dark bg-warning">Buy
+                      Ticket</button>
                   </div>
                 </div>
 
 
-                <!--SECTION Cancel/Sell -->
-                <div v-if="account?.id == activeEvent?.creatorId && activeEvent.isCanceled == false">
-                  <button @click="cancelEvent()" type="button" title="Cancel This Event">Cancel Event
-                  </button>
-                </div>
-
-
-                <span class="fs-1" v-show="activeEvent?.capacity <= 0 || activeEvent?.isCanceled">EVENT NO LONGER
-                  AVAILABLE</span>
               </div>
-              <!--SECTION END TICKETS-->
+
+
+              <!--SECTION Cancel/Sell -->
+              <div v-if="account?.id == activeEvent?.creatorId && activeEvent.isCanceled == false">
+                <button @click="cancelEvent()" type="button" title="Cancel This Event">Cancel Event
+                </button>
+              </div>
+
+
+              <span class="fs-1" v-show="activeEvent?.capacity <= 0 || activeEvent?.isCanceled">EVENT NO LONGER
+                AVAILABLE</span>
             </div>
+            <!--SECTION END TICKETS-->
           </div>
         </div>
-
-        <!--TODO Event ticket holders, profile pictures, and names-->
-        <div class="row justify-content-center">
-          profile card here
-        </div>
-
-        <!--SECTION Comment FORM-->
-
-        <div class="col-12 col-md-8">
-          <div class="row d-flex">
-            <small> What are people saying about {{ activeEvent.name }}</small>
-            <CommentForm />
-          </div>
-          <!--SECTION Event Comments here-->
-
-          <div class="row">
-            <div v-for="c in activeComments" class="col-12 col-md-6 p-2">
-              <CommentCard :comment="c" />
-            </div>
-          </div>
-        </div>
-
       </div>
+
+      <!--TODO Event ticket holders, profile pictures, and names-->
+      <div class="row justify-content-center">
+        <!-- <div v-for="p in " class="col-12 col-md-6 p-2">
+              <ProfileCard :profile="p" />            -->
+      </div>
+
+      <!--SECTION Comment FORM-->
+
+      <div class="col-12 col-md-8">
+        <div class="row d-flex">
+          <small> What are people saying about {{ activeEvent.name }}</small>
+          <CommentForm />
+        </div>
+        <!--SECTION Event Comments here-->
+
+        <div class="row">
+          <div v-for="c in activeComments" class="col-12 col-md-6 p-2">
+            <CommentCard :comment="c" />
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -143,10 +151,21 @@ export default {
         Pop.error('failed to get tickets for this event', error.message);
       }
     }
+
+    async function getProfiles() {
+      try {
+        await eventsService.getProfiles(route.params.eventId)
+      } catch (error) {
+        logger.log('[getting profiles for this event]', error);
+        Pop.error(error.message);
+      }
+    }
+
     onMounted(async () => {
       getEventById();
       getCommentsByEvent();
       getTicketsByEvent();
+      getProfiles();
 
     })
     return {
@@ -155,7 +174,10 @@ export default {
       activeComments: computed(() => AppState.activeComments),
       eventTickets: computed(() => AppState.eventTickets),
       myTicketsForEvent: computed(() => AppState.eventTickets.find(t => t.eventId == AppState.activeEvent.id)),
+      attending: computed(() => AppState.eventTickets.find(t => t.accountId = AppState.account.id)),
       account: computed(() => AppState.account),
+
+
 
       //  TODO try and grab a ticket from your Appstate using your account id. If that ticket exists, do not show the button on your page
 
@@ -167,7 +189,6 @@ export default {
         } catch (error) {
           logger.error(error);
           Pop.error('failed to create ticket', error.message);
-          console.log('ticket did not create')
         }
       },
 
@@ -182,6 +203,18 @@ export default {
           Pop.toast(error.message, 'error')
         }
 
+      },
+
+      async sellTicket(ticketId) {
+        try {
+          if (await Pop.confirm('Sell your ticket?')) {
+            await eventsService.sellTicket(ticketId)
+            Pop.toast('Ticket Sold')
+          }
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
       }
     }
   }
