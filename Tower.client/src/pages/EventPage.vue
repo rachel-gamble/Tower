@@ -34,7 +34,7 @@
         </div>
       </div>
 
-
+      <!--TODO CREATE BUTTON TO ATTEND EVENT >> (create ticket) >>>> + show people v-for tickets + make Attendees component -->
 
       <!--TODO Event ticket holders, profile pictures, and names-->
       <div class="row justify-content-center">
@@ -58,18 +58,9 @@
 
 
       </div>
-      <!-- <div v-if="event" class="col-12 col-md-4 p-4">
-        <div class=""></div>
-      </div> -->
-      <!-- 
-      <div v-for="e in events" class="col-12 col-md-3 p-2">
-        <EventCard :event="e" />
-      </div> -->
+
 
     </div>
-    <!-- NOTE Only shows this if logged in and have events-->
-    <!-- <div v-if="account.id && myEvents.length > 0"> -->
-    <!-- </div> -->
 
 
 
@@ -107,16 +98,25 @@ export default {
         logger.error('[GET COMMENTS]', error);
       }
     }
+
+    async function getTicketsByEvent(eventId) {
+      try {
+        await eventsService.getTicketsByEvent(route.params.eventId)
+      } catch (error) {
+        logger.error('[GET tickets]', error);
+      }
+    }
     onMounted(async () => {
       getEventById();
       getCommentsByEvent();
+      getTicketsByEvent();
 
     })
     return {
       comment,
       activeEvent: computed(() => AppState.activeEvent),
       activeComments: computed(() => AppState.activeComments),
-      // activeTickets: computed(() => AppState.activeTickets),
+      tickets: computed(() => AppState.eventTickets),
       //TODO - Add ticket computed
     }
 

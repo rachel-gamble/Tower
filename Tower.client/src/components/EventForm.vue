@@ -90,20 +90,30 @@ export default {
         try {
           logger.log(editable.value)
           // NOTE create album returns the res.data with our ID on it
-          await eventsService.createEvent(editable.value);
+          const event = await eventsService.createEvent(editable.value);
           // NOTE clear the form by sitting the value of editable to an empty object
           editable.value = {}
           // NOTE hide the modal after the form submits
           Modal.getOrCreateInstance('#eventModal').hide()
           // NOTE use the id from the returned album to automatically push the user to that album's page, using the name form our supplied to object to load a page from router.js
           // TODO BELOW: redirect to created event page once I make that
-          // router.push({ name: 'Event', params: { eventId: event.id } })
+          router.push({ name: 'Event', params: { eventId: event.id } })
           Pop.toast("Created a new event!", "success")
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "error");
         }
       },
+      async editEvent() {
+        try {
+          await eventsService.editEvent(editable.value)
+          editable.value = {}
+          Pop.toast('Event Edited', 'success')
+        } catch (error) {
+          Pop.error(error)
+          logger.error(error)
+        }
+      }
     };
   },
 };
