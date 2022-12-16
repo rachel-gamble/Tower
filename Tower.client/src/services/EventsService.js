@@ -28,11 +28,12 @@ class EventsService {
         AppState.activeComments = res.data
     }
 
-    async getTicketsByEvent(eventId) {
-        const res = await api.get('api/events/' + eventId + '/tickets')
-        console.log('[getting tickets for this event]', res.data)
-        AppState.eventTickets = res.data
+    async cancelEvent(eventId) {
+        const res = await api.delete('api/events/' + eventId)
+        AppState.activeEvent = res.data
+        logger.log('canceled event', res.data)
     }
+
 
     // async getEventsByUser(){
     //     const res = await api.get('api/accounts')

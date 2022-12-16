@@ -18,6 +18,7 @@ async function createAccountIfNeeded(account, user) {
   return account
 }
 
+
 /**
  * Adds sub to account if not already on account
  * @param {any} account
@@ -59,6 +60,8 @@ class AccountService {
     await mergeSubsIfNeeded(account, user)
     return account
   }
+
+  a
 
   /**
    * Updates account with the request body, will only allow changes to editable fields

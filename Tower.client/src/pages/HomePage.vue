@@ -9,9 +9,9 @@
     </EventModal>
     <!--SECTION home page links-->
     <div class="row">
-      <div class="col-12 p-4 text-info d-flex justify-space-between">
+      <div class="col-12 p-4 text-info d-flex justify-space-between hot-pink">
         <!--TODO pass @click="filterBy = 'all'"-->
-        <button @click="filterBy = ''" class="p-2 mx-2 rounded">All Events</button>
+        <button @click="filterBy = ''" class="warning p-2 mx-2 rounded">All Events</button>
         <button @click="filterBy = 'concert'" class="p-2 mx-2 rounded">Raves</button>
         <button @click="filterBy = 'convention'" class="p-2 mx-2 rounded">Concerts</button>
         <button @click="filterBy = 'sport'" class="p-2 mx-2 rounded">Yoga + Dance</button>
@@ -74,6 +74,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.hot-pink {
+  outline: fuchsia;
+  color: fuchsia;
+  text-shadow: 1px 1pc hsla(0, 0%, 50%, 0.676);
+  background-color: slategray;
+}
+
+.warning {
+  color: black;
+  font-weight: bold;
+  text-shadow: 2px 2px rgb(233, 217, 70);
+}
+
 .home {
   display: grid;
   height: 80vh;

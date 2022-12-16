@@ -66,6 +66,9 @@
       "titleBar.inactiveBackground": "#9f64b399",
       "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "#9f64b3"
+    "peacock.color": "#9f64b3",
+    "cSpell.ignoreWords": [
+      "handsdown"
+    ]
   }
 }

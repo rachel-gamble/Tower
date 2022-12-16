@@ -4,6 +4,8 @@
             <img :src="event.coverImg" alt="" class="img-fluid rounded-top event-img">
             <div class="text-center fw-bold p-1">
                 <p class="text-shadow">{{ event.name }}</p>
+                <p v-if="event.isCanceled == true" class="text-danger fw-bold">EVENT CANCELED</p>
+                <p v-if="event.capacity == 0">EVENT SOLD OUT</p>
 
             </div>
 
