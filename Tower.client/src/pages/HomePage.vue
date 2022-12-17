@@ -13,8 +13,8 @@
         <!--TODO pass @click="filterBy = 'all'"-->
         <button @click="filterBy = ''" class="warning p-2 mx-2 rounded">All Events</button>
         <button @click="filterBy = 'concert'" class="p-2 mx-2 rounded">Raves</button>
-        <button @click="filterBy = 'convention'" class="p-2 mx-2 rounded">Concerts</button>
-        <button @click="filterBy = 'sport'" class="p-2 mx-2 rounded">Yoga + Dance</button>
+        <button @click="filterBy = 'convention'" class="p-2 mx-2 rounded">Convention</button>
+        <button @click="filterBy = 'sport'" class="p-2 mx-2 rounded">Sport</button>
         <button @click="filterBy = 'digital'" class="p-2 mx-2 rounded">Tech</button>
       </div>
     </div>

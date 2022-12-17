@@ -178,7 +178,7 @@ export default {
       activeComments: computed(() => AppState.activeComments),
       eventTickets: computed(() => AppState.eventTickets),
       myTicketsForEvent: computed(() => AppState.eventTickets.find(t => t.eventId == AppState.activeEvent.id)),
-      attending: computed(() => AppState.eventTickets.find(t => t.accountId = AppState.account.id)),
+      attending: computed(() => AppState.eventTickets.find(t => t.accountId == AppState.account.id)),
       account: computed(() => AppState.account),
 
 
