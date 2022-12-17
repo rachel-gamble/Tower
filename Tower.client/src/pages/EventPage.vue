@@ -22,7 +22,8 @@
                 <!--SECTION Start Date-->
                 <!--TODO fix date string-->
 
-                <p>{{ activeEvent.startDate }}</p>
+                <p>Event Date: {{ new Date(activeEvent.startDate).toDateString() }}</p>
+
                 <!--SECTION Capacity-->
                 <p>Tickets Left: {{ activeEvent.capacity }}</p>
                 <!--SECTION Cancel / Alive -->
@@ -56,7 +57,7 @@
                   <div v-if="attending">
                     <button @click="sellTicket(attending.id)">Sell Ticket</button>
                   </div>
-                  <div v-else-if="!activeEvent?.isCanceled && account.id">
+                  <div v-else-if="!activeEvent?.isCanceled && account.id && activeEvent.capacity != 0">
                     <button @click="createTicket()" title="'attend ' + activeEvent?.name'"
                       class="text-dark bg-warning">Buy
                       Ticket</button>
@@ -134,6 +135,8 @@ export default {
         Pop.error(error.message);
       }
     }
+
+
     async function getCommentsByEvent(eventId) {
       try {
         await eventsService.getCommentsByEvent(route.params.eventId);
@@ -166,6 +169,7 @@ export default {
       getCommentsByEvent();
       getTicketsByEvent();
       getProfiles();
+
 
     })
     return {
